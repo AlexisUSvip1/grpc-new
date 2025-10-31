@@ -1,0 +1,45 @@
+syntax = "proto3";
+package example.users;
+
+message AddUserRequest {
+  string name = 1;
+  string fullname = 2;
+  int32 age = 3;
+}
+
+message AddUserReply {
+  string message = 1;
+}
+
+message AddProductToUserRequest {
+  string user_id = 1;
+  string product_id = 2;
+}
+message AddProductToUserReply {
+  string message = 1;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserReply {
+  string id = 1;
+  string name = 2;
+  string fullname = 3;
+  int32 age = 4;
+}
+
+message ListUsersRequest {}
+
+message ListUsersReply {
+  repeated GetUserReply users = 1;
+}
+
+service Users {
+  rpc AddUser (AddUserRequest) returns (AddUserReply);
+  rpc GetUser (GetUserRequest) returns (GetUserReply);
+  rpc ListUsers (ListUsersRequest) returns (ListUsersReply);
+  rpc AddProductToUser (AddProductToUserRequest) returns (AddProductToUserReply);
+
+}

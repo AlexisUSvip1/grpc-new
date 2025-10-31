@@ -1,0 +1,47 @@
+syntax = "proto3";
+package example.products;
+
+
+// 📦 Mensaje para agregar un producto
+message AddProductRequest{
+  string name = 1;
+  int32 price = 2;
+  string order = 3;
+}
+
+// 📦 Respuesta al agregar un producto
+message AddProductReply {
+  string message = 1;
+}
+
+// 📦 Mensaje para obtener un producto por ID
+message GetProductRequest {
+  string  id =1;
+}
+
+// 📦 Respuesta con la información del producto
+message GetProductReply {
+  string id = 1;
+  string name = 2;
+  int32 price = 3;
+  string order = 4;
+}
+
+// 📦 Mensaje para listar todos los productos
+message ListProductsRequest {} // vacío
+
+message ListProductsReply {
+  repeated GetProductReply products = 1;
+}
+
+// 💼 Servicio principal
+service Products {
+  // Crear un nuevo producto
+  rpc AddProduct (AddProductRequest) returns (AddProductReply);
+
+  // Obtener producto por ID
+  rpc GetProduct (GetProductRequest) returns (GetProductReply);
+
+  // Listar todos los productos
+  rpc ListProducts (ListProductsRequest) returns (ListProductsReply);
+}
